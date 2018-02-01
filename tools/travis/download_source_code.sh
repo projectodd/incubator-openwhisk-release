@@ -9,13 +9,11 @@ HOMEDIR="$(dirname "$TRAVIS_BUILD_DIR")"
 OPENWHISKDIR="$HOMEDIR/openwhisk"
 source "$TRAVIS_BUILD_DIR/tools/travis/util.sh"
 
-clone_depth=${1:-"100"}
-
 function git_clone_repo() {
     ORG_NAME=$1
     PROJECT_NAME=$2
     HASH=$3
-    git clone --depth $clone_depth https://github.com/$ORG_NAME/$PROJECT_NAME.git $OPENWHISKDIR/$PROJECT_NAME
+    git clone https://github.com/$ORG_NAME/$PROJECT_NAME.git $OPENWHISKDIR/$PROJECT_NAME
     cd $OPENWHISKDIR/$PROJECT_NAME
     git reset --hard $HASH
     rm -rf .git
