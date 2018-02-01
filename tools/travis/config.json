@@ -7,22 +7,22 @@
     "apache/incubator-openwhisk-cli",
     "apache/incubator-openwhisk-wskdeploy"
   ],
-  "projectodd/incubator_openwhisk": {
+  "incubator_openwhisk": {
     "hash": "2991c1d"
   },
-  "projectodd/incubator_openwhisk_deploy_kube": {
+  "incubator_openwhisk_deploy_kube": {
     "hash": "6e8ab10"
   },
-  "apache/incubator_openwhisk_catalog": {
+  "incubator_openwhisk_catalog": {
     "hash": "ad24d4c"
   },
-  "apache/incubator_openwhisk_runtime_nodejs": {
+  "incubator_openwhisk_runtime_nodejs": {
     "hash": "1c6c5db"
   },
-  "apache/incubator_openwhisk_cli": {
+  "incubator_openwhisk_cli": {
     "hash": "7b78091"
   },
-  "apache/incubator_openwhisk_wskdeploy": {
+  "incubator_openwhisk_wskdeploy": {
     "hash": "9840db4"
   }
 }
