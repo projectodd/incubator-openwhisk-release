@@ -13,8 +13,8 @@ clone_depth=${1:-"100"}
 
 function git_clone_repo() {
     ORG_NAME=$1
-    PROJECT_NAME=$1
-    HASH=$2
+    PROJECT_NAME=$2
+    HASH=$3
     git clone --depth $clone_depth https://github.com/$ORG_NAME/$PROJECT_NAME.git $OPENWHISKDIR/$PROJECT_NAME
     cd $OPENWHISKDIR/$PROJECT_NAME
     git reset --hard $HASH
