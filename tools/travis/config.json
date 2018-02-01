@@ -1,24 +1,24 @@
 {
   "RepoList": [
-    "incubator-openwhisk",
-    "incubator-openwhisk-catalog",
-    "incubator-openwhisk-runtime-nodejs",
-    "incubator-openwhisk-cli",
-    "incubator-openwhisk-wskdeploy"
+    "projectodd/incubator-openwhisk",
+    "apache/incubator-openwhisk-catalog",
+    "apache/incubator-openwhisk-runtime-nodejs",
+    "apache/incubator-openwhisk-cli",
+    "apache/incubator-openwhisk-wskdeploy"
   ],
-  "incubator_openwhisk": {
-    "hash": "a891e06"
+  "projectodd/incubator_openwhisk": {
+    "hash": "2991c1d"
   },
-  "incubator_openwhisk_catalog": {
+  "apache/incubator_openwhisk_catalog": {
     "hash": "ad24d4c"
   },
-  "incubator_openwhisk_runtime_nodejs": {
+  "apache/incubator_openwhisk_runtime_nodejs": {
     "hash": "1c6c5db"
   },
-  "incubator_openwhisk_cli": {
+  "apache/incubator_openwhisk_cli": {
     "hash": "7b78091"
   },
-  "incubator_openwhisk_wskdeploy": {
+  "apache/incubator_openwhisk_wskdeploy": {
     "hash": "9840db4"
   }
 }
