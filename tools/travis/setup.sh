@@ -26,15 +26,15 @@ cd $OPENWHISKDIR/incubator-openwhisk
 ./tools/travis/setup.sh
 TERM=dumb ./gradlew core:controller:distDocker core:invoker:distDocker -PdockerImagePrefix=$PREFIX
 
-cd ansible
-ANSIBLE_CMD="ansible-playbook -i environments/local -e docker_image_prefix=$PREFIX"
-$ANSIBLE_CMD setup.yml
-$ANSIBLE_CMD prereq.yml
-$ANSIBLE_CMD couchdb.yml
-$ANSIBLE_CMD initdb.yml
-$ANSIBLE_CMD apigateway.yml
-$ANSIBLE_CMD wipe.yml
-$ANSIBLE_CMD openwhisk.yml
+# cd ansible
+# ANSIBLE_CMD="ansible-playbook -i environments/local -e docker_image_prefix=$PREFIX"
+# $ANSIBLE_CMD setup.yml
+# $ANSIBLE_CMD prereq.yml
+# $ANSIBLE_CMD couchdb.yml
+# $ANSIBLE_CMD initdb.yml
+# $ANSIBLE_CMD apigateway.yml
+# $ANSIBLE_CMD wipe.yml
+# $ANSIBLE_CMD openwhisk.yml
 
 # Build the binaries for CLI
 cd $OPENWHISKDIR/incubator-openwhisk-cli
@@ -43,3 +43,8 @@ cd $OPENWHISKDIR/incubator-openwhisk-cli
 # Build the binaries for wskdeploy
 cd $OPENWHISKDIR/incubator-openwhisk-wskdeploy
 ./gradlew distDocker -PcrossCompileWSKDEPLOY=true
+
+# Deploy to OpenShift and run smoke tests
+cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
+./tools/travis/openshift-setup.sh
+./tools/travis/openshift-build.sh

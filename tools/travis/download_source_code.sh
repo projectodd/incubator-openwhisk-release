@@ -11,9 +11,10 @@ source "$TRAVIS_BUILD_DIR/tools/travis/util.sh"
 clone_depth=${1:-"100"}
 
 function git_clone_repo() {
+    ORG_NAME=$1
     PROJECT_NAME=$1
     HASH=$2
-    git clone --depth $clone_depth https://github.com/$PROJECT_NAME.git $OPENWHISKDIR/$PROJECT_NAME
+    git clone --depth $clone_depth https://github.com/$ORG_NAME/$PROJECT_NAME.git $OPENWHISKDIR/$PROJECT_NAME
     cd $OPENWHISKDIR/$PROJECT_NAME
     git reset --hard $HASH
     rm -rf .git
@@ -26,11 +27,13 @@ repos=$(echo $(json_by_key "$CONFIG" "RepoList") | sed 's/[][]//g')
 
 for repo in $(echo $repos | sed "s/,/ /g")
 do
-    repo_name=$(echo "$repo" | sed -e 's/^"//' -e 's/"$//')
+    org_and_repo=$(echo "$repo" | sed -e 's/^"//' -e 's/"$//')
+    org_name=$(echo "$org_and_repo" | awk -F '/' {'print $1'})
+    repo_name=$(echo "$org_and_repo" | awk -F '/' {'print $2'})
     HASH_KEY=${repo_name//-/_}.hash
     HASH=$(json_by_key "$CONFIG" $HASH_KEY)
     if [ "$HASH" != "null" ]; then
         echo "The hash for $repo_name is $HASH"
-        git_clone_repo $repo_name $HASH
+        git_clone_repo $org_name $repo_name $HASH
     fi
 done
