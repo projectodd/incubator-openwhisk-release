@@ -66,7 +66,7 @@ docker build --tag ${IMAGE_PREFIX}/whisk_couchdb:${IMAGE_TAG} docker/couchdb
 docker build --tag ${IMAGE_PREFIX}/whisk_zookeeper:${IMAGE_TAG} docker/zookeeper
 docker build --tag ${IMAGE_PREFIX}/whisk_kafka:${IMAGE_TAG} docker/kafka
 docker build --tag ${IMAGE_PREFIX}/whisk_nginx:${IMAGE_TAG} docker/nginx
-docker build --tag ${IMAGE_PREFIX}/whisk_catalog:${IMAGE_TAG} docker/openwhisk_catalog
+docker build --tag ${IMAGE_PREFIX}/whisk_catalog:${IMAGE_TAG} docker/openwhisk-catalog
 docker build --tag ${IMAGE_PREFIX}/whisk_alarms:${IMAGE_TAG} docker/alarms
 
 # Deploy to OpenShift and run smoke tests
