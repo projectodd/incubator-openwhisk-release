@@ -51,7 +51,7 @@ cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
 
 # run some diagnostics before deployingstuff
 oc login -u system:admin
-oc adm diagnostics
+oc get pods --all-namespaces -o wide
 oc login -u developer -p any
 
 ./tools/travis/openshift-build.sh
