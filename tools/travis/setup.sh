@@ -48,4 +48,10 @@ cd $OPENWHISKDIR/incubator-openwhisk-wskdeploy
 # Deploy to OpenShift and run smoke tests
 cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
 ./tools/travis/openshift-setup.sh
+
+# run some diagnostics before deployingstuff
+oc login -u system:admin
+oc adm diagnostics
+oc login -u developer -p any
+
 ./tools/travis/openshift-build.sh
