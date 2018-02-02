@@ -10,7 +10,8 @@ HOMEDIR="$(dirname "$TRAVIS_BUILD_DIR")"
 OPENWHISKDIR="$HOMEDIR/openwhisk"
 SUFFIX="$TRAVIS_BUILD_NUMBER"
 PR_NUM="$TRAVIS_PULL_REQUEST"
-PREFIX="build_testing"
+IMAGE_PREFIX="projectodd"
+IMAGE_TAG="openshift-latest"
 
 export OPENWHISK_HOME="$OPENWHISKDIR/incubator-openwhisk";
 
@@ -34,17 +35,10 @@ cd $OPENWHISKDIR/incubator-openwhisk
 pip install --user couchdb
 pip install --user ansible==2.3.0.0
 #
-TERM=dumb ./gradlew core:controller:distDocker core:invoker:distDocker -PdockerImagePrefix=$PREFIX
+TERM=dumb ./gradlew core:controller:distDocker core:invoker:distDocker -PdockerImagePrefix=$IMAGE_PREFIX -PdockerImageTag=$IMAGE_TAG
 
-# cd ansible
-# ANSIBLE_CMD="ansible-playbook -i environments/local -e docker_image_prefix=$PREFIX"
-# $ANSIBLE_CMD setup.yml
-# $ANSIBLE_CMD prereq.yml
-# $ANSIBLE_CMD couchdb.yml
-# $ANSIBLE_CMD initdb.yml
-# $ANSIBLE_CMD apigateway.yml
-# $ANSIBLE_CMD wipe.yml
-# $ANSIBLE_CMD openwhisk.yml
+echo "list images in setup after build"
+docker images
 
 # Build the binaries for CLI
 cd $OPENWHISKDIR/incubator-openwhisk-cli
