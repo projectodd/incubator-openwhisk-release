@@ -29,7 +29,11 @@ cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
 
 # Build the controller and invoker
 cd $OPENWHISKDIR/incubator-openwhisk
-./tools/travis/setup.sh
+# ./tools/travis/setup.sh
+# instead of setup.sh, we copy only a few relevant bits of it here
+pip install --user couchdb
+pip install --user ansible==2.3.0.0
+#
 TERM=dumb ./gradlew core:controller:distDocker core:invoker:distDocker -PdockerImagePrefix=$PREFIX
 
 # cd ansible
