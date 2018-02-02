@@ -4,6 +4,8 @@
     "projectodd/incubator-openwhisk-deploy-kube",
     "apache/incubator-openwhisk-catalog",
     "apache/incubator-openwhisk-runtime-nodejs",
+    "apache/incubator-openwhisk-runtime-python",
+    "apache/incubator-openwhisk-runtime-java",
     "apache/incubator-openwhisk-cli",
     "apache/incubator-openwhisk-wskdeploy"
   ],
@@ -18,6 +20,12 @@
   },
   "incubator_openwhisk_runtime_nodejs": {
     "hash": "1c6c5db"
+  },
+  "incubator_openwhisk_runtime_python": {
+    "hash": "0e8aa67"
+  },
+  "incubator_openwhisk_runtime_java": {
+    "hash": "1721a71"
   },
   "incubator_openwhisk_cli": {
     "hash": "7b78091"

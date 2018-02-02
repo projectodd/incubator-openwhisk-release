@@ -37,6 +37,18 @@ pip install --user ansible==2.3.0.0
 #
 TERM=dumb ./gradlew core:controller:distDocker core:invoker:distDocker -PdockerImagePrefix=$IMAGE_PREFIX -PdockerImageTag=$IMAGE_TAG
 
+# Build the Node runtime images
+cd $OPENWHISKDIR/incubator-openwhisk-runtime-nodejs
+TERM=dumb ./gradlew core:nodejs6Action:distDocker core:nodejs8Action:distDocker -PdockerImagePrefix=$IMAGE_PREFIX -PdockerImageTag=$IMAGE_TAG
+
+# Build the Python runtime images
+cd $OPENWHISKDIR/incubator-openwhisk-runtime-python
+TERM=dumb ./gradlew core:pythonAction:distDocker core:python2Action:distDocker -PdockerImagePrefix=$IMAGE_PREFIX -PdockerImageTag=$IMAGE_TAG
+
+# Build the Java runtime image
+cd $OPENWHISKDIR/incubator-openwhisk-runtime-java
+TERM=dumb ./gradlew core:javaAction:distDocker -PdockerImagePrefix=$IMAGE_PREFIX -PdockerImageTag=$IMAGE_TAG
+
 echo "list images in setup after build"
 docker images
 
@@ -47,6 +59,15 @@ cd $OPENWHISKDIR/incubator-openwhisk-cli
 # Build the binaries for wskdeploy
 cd $OPENWHISKDIR/incubator-openwhisk-wskdeploy
 ./gradlew distDocker -PcrossCompileWSKDEPLOY=true
+
+# Build the deployment Docker images for OpenShift
+cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
+docker build --tag ${IMAGE_PREFIX}/whisk_couchdb:${IMAGE_TAG} docker/couchdb
+docker build --tag ${IMAGE_PREFIX}/whisk_zookeeper:${IMAGE_TAG} docker/zookeeper
+docker build --tag ${IMAGE_PREFIX}/whisk_kafka:${IMAGE_TAG} docker/kafka
+docker build --tag ${IMAGE_PREFIX}/whisk_nginx:${IMAGE_TAG} docker/nginx
+docker build --tag ${IMAGE_PREFIX}/whisk_catalog:${IMAGE_TAG} docker/openwhisk_catalog
+docker build --tag ${IMAGE_PREFIX}/whisk_alarms:${IMAGE_TAG} docker/alarms
 
 # Deploy to OpenShift and run smoke tests
 cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
