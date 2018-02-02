@@ -1,14 +1,12 @@
 sudo: required
 
-group: deprecated-2017Q3
-
-services:
-  - docker
-
 env:
   global:
   - OPENSHIFT_VERSION=3.6.1
   - OPENSHIFT_COMMIT=008f2d5 # always update when bumping $OPENSHIFT_VERSION
+
+services:
+  - docker
 
 jobs:
   include:

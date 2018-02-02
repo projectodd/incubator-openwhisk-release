@@ -23,6 +23,17 @@ docker images
 cd $TRAVIS_BUILD_DIR
 ./tools/travis/download_source_code.sh
 
+# Deploy to OpenShift and run smoke tests
+cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
+./tools/travis/openshift-setup.sh
+
+# run some diagnostics before deployingstuff
+oc login -u system:admin
+oc get pods --all-namespaces -o wide
+oc login -u developer -p any
+
+./tools/travis/openshift-build.sh
+
 cd $OPENWHISKDIR/incubator-openwhisk
 ./tools/travis/setup.sh
 TERM=dumb ./gradlew core:controller:distDocker core:invoker:distDocker -PdockerImagePrefix=$PREFIX
@@ -44,14 +55,3 @@ cd $OPENWHISKDIR/incubator-openwhisk-cli
 # Build the binaries for wskdeploy
 cd $OPENWHISKDIR/incubator-openwhisk-wskdeploy
 ./gradlew distDocker -PcrossCompileWSKDEPLOY=true
-
-# Deploy to OpenShift and run smoke tests
-cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
-./tools/travis/openshift-setup.sh
-
-# run some diagnostics before deployingstuff
-oc login -u system:admin
-oc get pods --all-namespaces -o wide
-oc login -u developer -p any
-
-./tools/travis/openshift-build.sh
