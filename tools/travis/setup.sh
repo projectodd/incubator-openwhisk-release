@@ -63,7 +63,7 @@ cd $OPENWHISKDIR/incubator-openwhisk-wskdeploy
 # Figure out which url and hash to use for Docker builds that need
 # OpenWhisk cloned
 cd $OPENWHISKDIR/incubator-openwhisk
-OPENWHISK_REPO_URL=$(cat .git/config | grep url | tr -d '[:space:]' | awk -F '=' {'print $2'})
+OPENWHISK_REPO_URL=$(git remote get-url origin)
 OPENWHISK_REPO_HASH=$(git rev-parse $HEAD)
 
 # Build the deployment Docker images for OpenShift
