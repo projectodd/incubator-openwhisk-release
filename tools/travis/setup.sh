@@ -64,7 +64,7 @@ cd $OPENWHISKDIR/incubator-openwhisk-wskdeploy
 # OpenWhisk cloned
 cd $OPENWHISKDIR/incubator-openwhisk
 OPENWHISK_REPO_URL=$(git remote get-url origin)
-OPENWHISK_REPO_HASH=$(git rev-parse $HEAD)
+OPENWHISK_REPO_HASH=$(git rev-parse HEAD)
 
 # Build the deployment Docker images for OpenShift
 cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
