@@ -60,9 +60,15 @@ cd $OPENWHISKDIR/incubator-openwhisk-cli
 cd $OPENWHISKDIR/incubator-openwhisk-wskdeploy
 ./gradlew distDocker -PcrossCompileWSKDEPLOY=true
 
+# Figure out which url and hash to use for Docker builds that need
+# OpenWhisk cloned
+cd $OPENWHISKDIR/incubator-openwhisk
+OPENWHISK_REPO_URL=$(cat .git/config | grep url | tr -d '[:space:]' | awk -F '=' {'print $2'})
+OPENWHISK_REPO_HASH=$(git rev-parse $HEAD)
+
 # Build the deployment Docker images for OpenShift
 cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
-docker build --tag ${IMAGE_PREFIX}/whisk_couchdb:${IMAGE_TAG} docker/couchdb
+docker build --build-arg OPENWHISK_REPO_URL=${OPENWHISK_REPO_URL} --build-arg OPENWHISK_REPO_HASH=${OPENWHISK_REPO_HASH} --tag ${IMAGE_PREFIX}/whisk_couchdb:${IMAGE_TAG} docker/couchdb
 docker build --tag ${IMAGE_PREFIX}/whisk_zookeeper:${IMAGE_TAG} docker/zookeeper
 docker build --tag ${IMAGE_PREFIX}/whisk_kafka:${IMAGE_TAG} docker/kafka
 docker build --tag ${IMAGE_PREFIX}/whisk_nginx:${IMAGE_TAG} docker/nginx
