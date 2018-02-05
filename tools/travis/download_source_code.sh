@@ -16,7 +16,6 @@ function git_clone_repo() {
     git clone https://github.com/$ORG_NAME/$PROJECT_NAME.git $OPENWHISKDIR/$PROJECT_NAME
     cd $OPENWHISKDIR/$PROJECT_NAME
     git reset --hard $HASH
-    rm -rf .git
 }
 
 rm -rf $OPENWHISKDIR/*
