@@ -11,7 +11,7 @@ OPENWHISKDIR="$HOMEDIR/openwhisk"
 SUFFIX="$TRAVIS_BUILD_NUMBER"
 PR_NUM="$TRAVIS_PULL_REQUEST"
 IMAGE_PREFIX="projectodd"
-IMAGE_TAG="openshift-latest"
+IMAGE_TAG="openshift-travis${SUFFIX}"
 
 export OPENWHISK_HOME="$OPENWHISKDIR/incubator-openwhisk";
 
@@ -77,4 +77,6 @@ docker build --tag ${IMAGE_PREFIX}/whisk_alarms:${IMAGE_TAG} docker/alarms
 
 # Deploy to OpenShift and run smoke tests
 cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
+# But first update all Docker images to our newly tagged versions
+find openshift -name "*.yml" -type f -print0 | xargs -0 sed -i "s/openshift-latest/${IMAGE_TAG}/g"
 ./tools/travis/openshift-build.sh
