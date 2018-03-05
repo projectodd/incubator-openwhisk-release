@@ -1,7 +1,7 @@
 {
   "RepoList": [
     "projectodd/incubator-openwhisk",
-    "projectodd/incubator-openwhisk-deploy-kube",
+    "projectodd/openwhisk-openshift",
     "apache/incubator-openwhisk-catalog",
     "apache/incubator-openwhisk-runtime-nodejs",
     "apache/incubator-openwhisk-runtime-python",
@@ -10,10 +10,10 @@
     "apache/incubator-openwhisk-wskdeploy"
   ],
   "incubator_openwhisk": {
-    "hash": "2991c1d"
+    "hash": "2d25c79"
   },
-  "incubator_openwhisk_deploy_kube": {
-    "hash": "9e59308"
+  "openwhisk_openshift": {
+    "hash": "9f7c700"
   },
   "incubator_openwhisk_catalog": {
     "hash": "ad24d4c"

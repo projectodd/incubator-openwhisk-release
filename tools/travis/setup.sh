@@ -25,8 +25,8 @@ cd $TRAVIS_BUILD_DIR
 ./tools/travis/download_source_code.sh
 
 # Setup OpenShift
-cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
-./tools/travis/openshift-setup.sh
+cd $OPENWHISKDIR/openwhisk-openshift
+./tools/travis/setup.sh
 
 # Build the controller and invoker
 cd $OPENWHISKDIR/incubator-openwhisk
@@ -67,16 +67,14 @@ OPENWHISK_REPO_URL=$(git remote get-url origin)
 OPENWHISK_REPO_HASH=$(git rev-parse HEAD)
 
 # Build the deployment Docker images for OpenShift
-cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
+cd $OPENWHISKDIR/openwhisk-openshift
 docker build --build-arg OPENWHISK_REPO_URL=${OPENWHISK_REPO_URL} --build-arg OPENWHISK_REPO_HASH=${OPENWHISK_REPO_HASH} --tag ${IMAGE_PREFIX}/whisk_couchdb:${IMAGE_TAG} docker/couchdb
-docker build --tag ${IMAGE_PREFIX}/whisk_zookeeper:${IMAGE_TAG} docker/zookeeper
-docker build --tag ${IMAGE_PREFIX}/whisk_kafka:${IMAGE_TAG} docker/kafka
 docker build --tag ${IMAGE_PREFIX}/whisk_nginx:${IMAGE_TAG} docker/nginx
 docker build --tag ${IMAGE_PREFIX}/whisk_catalog:${IMAGE_TAG} docker/openwhisk-catalog
 docker build --tag ${IMAGE_PREFIX}/whisk_alarms:${IMAGE_TAG} docker/alarms
 
 # Deploy to OpenShift and run smoke tests
-cd $OPENWHISKDIR/incubator-openwhisk-deploy-kube
+cd $OPENWHISKDIR/openwhisk-openshift
 # But first update all Docker images to our newly tagged versions
-find openshift -name "*.yml" -type f -print0 | xargs -0 sed -i "s/openshift-latest/${IMAGE_TAG}/g"
-./tools/travis/openshift-build.sh
+sed -i "s/openshift-latest/${IMAGE_TAG}/g" $OPENSHIFT_TEMPLATE
+./tools/travis/build.sh
